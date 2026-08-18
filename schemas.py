@@ -17,4 +17,6 @@ class VisualizarUsuario(BaseModel):
 class VisualizarUsuarioID(BaseModel):
     id: int
 
-
+class LoginSchemas(BaseModel):
+    email: str
+    senha: str

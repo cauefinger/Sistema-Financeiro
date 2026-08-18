@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schemas import UsuarioSchemas
+from schemas import UsuarioSchemas, LoginSchemas
 from Sessao import pegar_sessao
 from model.Usuario import Usuario
 from criptografar import bcrypt_context
@@ -12,6 +12,7 @@ auth_router = APIRouter (
 @auth_router.get("/")
 async def mensagem_rota():
     return {"mensagem":"Você entrou na rota de autentificação."}   
+
 
 @auth_router.post("/")
 async def criar_conta(usuario_schema: UsuarioSchemas, sessao = Depends (pegar_sessao)):
@@ -29,3 +30,33 @@ async def criar_conta(usuario_schema: UsuarioSchemas, sessao = Depends (pegar_se
         sessao.add(novo_usuario)
         sessao.commit()
         return {"mensagem": f"Usuário cadastrado com sucesso {novo_usuario.email}"} 
+
+
+@auth_router.post("/")
+async def logar_conta(
+    LoginSchemas,
+    Sessao: pegar_sessao
+    ):
+
+    Usuario = Sessao.query(Usuario).filter(Usuario == LoginSchemas.usuario).first()
+
+    if not Usuario:
+        raise HTTPException(
+            status_code=401,
+            detail="Usuário não autorizado ou credenciais inválidas"
+        )
+
+    if not bcrypt_context.verify(   # verificação de credenciais
+        LoginSchemas.senha,
+        Usuario.senha
+    ):
+        raise HTTPException(
+            status_code=401, 
+            detail="Usuário não autorizado ou credenciais inválidas"
+    )
+            
+
+    return{
+    
+    "mensagem": "Login realizado com sucesso!"
+}    
