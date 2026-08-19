@@ -1,22 +1,32 @@
 from pydantic import BaseModel
 from typing import Optional
+from sqlalchemy import ForeignKey, String, Integer, Boolean, Float, Date
+from model.Usuario import Usuario
 
 class UsuarioSchemas(BaseModel):
-    nome: str
-    email: str
-    senha: str
+    nome: String
+    email: String
+    senha: String
     ativo: Optional[bool]
     admin: Optional[bool]
 
 class VisualizarUsuario(BaseModel):
-    nome: str
-    email: str
+    nome: String
+    email: String
     ativo: Optional[bool]
     admin: Optional[bool]
 
 class VisualizarUsuarioID(BaseModel):
-    id: int
+    id: Integer
 
 class LoginSchemas(BaseModel):
-    email: str
-    senha: str
+    email: String
+    senha: String
+
+class TransacaoSchemas(BaseModel):
+    id = Integer
+    descricao = String
+    valor = Float
+    tipo = # adicionar tipo enum aqui
+    data = Date
+    usuario_id = ForeignKey(Usuario.id)

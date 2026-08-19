@@ -38,7 +38,7 @@ async def logar_conta(
     Sessao: pegar_sessao
     ):
 
-    Usuario = Sessao.query(Usuario).filter(Usuario == LoginSchemas.usuario).first()
+    Usuario = Sessao.query(Usuario.usuario).filter(Usuario == LoginSchemas.usuario).first()
 
     if not Usuario:
         raise HTTPException(
