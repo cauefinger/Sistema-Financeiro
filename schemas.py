@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 from sqlalchemy import ForeignKey, String, Integer, Boolean, Float, Date
 from model.Usuario import Usuario
+from enums import StatusTransacao
 
 class UsuarioSchemas(BaseModel):
     nome: String
@@ -27,6 +28,6 @@ class TransacaoSchemas(BaseModel):
     id = Integer
     descricao = String
     valor = Float
-    tipo = # adicionar tipo enum aqui
+    tipo = StatusTransacao
     data = Date
     usuario_id = ForeignKey(Usuario.id)
