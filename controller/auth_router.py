@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from schemas import UsuarioSchemas, LoginSchemas
-from Sessao import pegar_sessao
+from Depends import pegar_sessao
 from model.Usuario import Usuario
 from criptografar import bcrypt_context
 
