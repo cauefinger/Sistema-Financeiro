@@ -11,7 +11,14 @@ auth_router = APIRouter (
 
 @auth_router.get("/")
 async def mensagem_rota():
-    return {"mensagem":"Você entrou na rota de autentificação."}   
+    return {"mensagem":"Você entrou na rota de autentificação."}
+
+
+@auth_router.get("/listar_usuarios")
+async def listar_usuarios(sessao = Depends(pegar_sessao)):
+    usuarios = sessao.query(Usuario).all()
+    return {"A lista de usuários é": usuarios}
+
 
 
 @auth_router.post("/")
