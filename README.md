@@ -6,5 +6,6 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 
 ============ TAREFAS ============
 
+[ ] Usar o autentificar usuario no login e depois criar o token, refrash token
 [ ] Passar o arquivo .env, banco.db e pycache pro git ignore
 [ ] Subir para o github
