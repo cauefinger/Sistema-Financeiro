@@ -3,7 +3,7 @@ from schemas import UsuarioSchemas, LoginSchemas
 from Depends import pegar_sessao
 from model.Usuario import Usuario
 from criptografar import bcrypt_context, CryptContext
-
+from sqlalchemy.orm import Session
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 auth_router = APIRouter (
@@ -42,8 +42,8 @@ async def criar_conta(usuario_schema: UsuarioSchemas, sessao = Depends (pegar_se
 
 
 def autentificar_usuario(email, senha, sessao):
-
     usuario = sessao.query(Usuario).filter(email == Usuario.email).first()
+
     if not usuario or not pwd_context.verify(senha, usuario.senha_hash): 
         raise HTTPException(status_code=401, detail= "Credenciais inválidas.")
 
@@ -51,28 +51,12 @@ def autentificar_usuario(email, senha, sessao):
 
 @auth_router.post("/")
 async def logar_conta(
-    LoginSchemas,
-    Sessao: pegar_sessao
+    login: LoginSchemas,
+    sessao: Session = Depends(pegar_sessao)
     ):
 
-    Usuario = Sessao.query(Usuario.usuario).filter(Usuario == LoginSchemas.usuario).first()
-
-    if not Usuario:
-        raise HTTPException(
-            status_code=401,
-            detail="Usuário não autorizado ou credenciais inválidas"
-        )
-
-    if not bcrypt_context.verify(   # verificação de credenciais
-        LoginSchemas.senha,
-        Usuario.senha
-    ):
-        raise HTTPException(
-            status_code=401, 
-            detail="Usuário não autorizado ou credenciais inválidas"
-    )
-            
-
+    usuario = autentificar_usuario(login.email,login.senha, sessao)
+        
     return{
     
     "mensagem": "Login realizado com sucesso!"
