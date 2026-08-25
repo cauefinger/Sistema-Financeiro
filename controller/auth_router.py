@@ -4,6 +4,10 @@ from Depends import pegar_sessao
 from model.Usuario import Usuario
 from criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+
+
+
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 auth_router = APIRouter (
@@ -42,22 +46,26 @@ async def criar_conta(usuario_schema: UsuarioSchemas, sessao = Depends (pegar_se
 
 
 def autentificar_usuario(email, senha, sessao):
-    usuario = sessao.query(Usuario).filter(email == Usuario.email).first()
+    usuario = sessao.query(Usuario).filter(Usuario.email == email).first()
 
-    if not usuario or not pwd_context.verify(senha, usuario.senha_hash): 
+    if not usuario or not pwd_context.verify(senha, usuario.senha): 
         raise HTTPException(status_code=401, detail= "Credenciais inválidas.")
 
     return usuario
 
-@auth_router.post("/")
+
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autentificacao/login")
+
+@auth_router.post("/login")
 async def logar_conta(
-    login: LoginSchemas,
-    sessao: Session = Depends(pegar_sessao)
+        form_data: OAuth2PasswordRequestForm = Depends(),
+        sessao: Session = Depends(pegar_sessao)
     ):
 
-    usuario = autentificar_usuario(login.email,login.senha, sessao)
+    usuario = autentificar_usuario(form_data.username, form_data.password, sessao)
         
     return{
-    
-    "mensagem": "Login realizado com sucesso!"
+    "access_token": "token_provisorio_sem_jwt",
+    "token_type": "bearer"
 }    

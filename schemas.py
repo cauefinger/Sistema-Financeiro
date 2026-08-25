@@ -29,3 +29,4 @@ class TransacaoSchemas(BaseModel):
     tipo: StatusTransacao
     data: date
     usuario_id: int
+
