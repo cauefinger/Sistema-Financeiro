@@ -5,7 +5,7 @@ from model.Usuario import Usuario
 from criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-
+from auth_security import criar_token
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -57,6 +57,7 @@ def autentificar_usuario(email, senha, sessao):
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autentificacao/login")
 
+
 @auth_router.post("/login")
 async def logar_conta(
         form_data: OAuth2PasswordRequestForm = Depends(),
@@ -64,8 +65,10 @@ async def logar_conta(
     ):
 
     usuario = autentificar_usuario(form_data.username, form_data.password, sessao)
-        
+
+    token = criar_token(usuario.id)
+
     return{
-    "access_token": "token_provisorio_sem_jwt",
+    "access_token": token,
     "token_type": "bearer"
 }    
