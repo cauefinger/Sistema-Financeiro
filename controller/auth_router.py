@@ -5,7 +5,7 @@ from model.Usuario import Usuario
 from criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from auth_security import criar_token
+from controller.auth_security import criar_token
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
