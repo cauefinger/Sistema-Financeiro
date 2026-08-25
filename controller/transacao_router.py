@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from auth_router import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 transacao_router = APIRouter (
     prefix= "/transacoes",
     tags=["trasação"]
