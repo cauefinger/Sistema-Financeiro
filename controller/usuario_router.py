@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from Depends import pegar_sessao
+from controller.Depends import pegar_sessao
 from model.Usuario import Usuario
 from schemas import VisualizarUsuario
 
