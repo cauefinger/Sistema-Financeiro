@@ -31,4 +31,4 @@ def verificar_token(token: str = Depends(oauth2_scheme), sessao: session = Depen
         raise HTTPException(status_code=401,detail="Acesso inválido.")
 
     return usuario
-        
+            

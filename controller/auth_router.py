@@ -6,6 +6,7 @@ from criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from controller.auth_security import criar_token
+from Depends import verificar_token, Usuario
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -72,3 +73,6 @@ async def logar_conta(
     "access_token": token,
     "token_type": "bearer"
 }    
+
+@auth_router.post("/refresh_token")
+    pass
