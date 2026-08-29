@@ -7,10 +7,11 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from Depends import verificar_token, Usuario, session
 from controller.auth_security import gerar_hash, gerar_refresh_token, criar_token
-from sqlalchemy import engine, select
+from sqlalchemy import select
 from model.Refresh import Refresh_token
 from service.token import criar_refresh_token
 from datetime import datetime, timedelta, timezone
+from database import engine
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
