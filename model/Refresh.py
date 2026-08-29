@@ -1,6 +1,7 @@
 from database import engine, Base
 from sqlalchemy import Column, String, Boolean, DateTime
 from datetime import timedelta, timezone, datetime
+
 class Refresh_token(Base):
     __tablename__= "Refresh Tokens"
 

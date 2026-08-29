@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from controller.auth_security import criar_token
 from Depends import verificar_token, Usuario
+from service.token import criar_refresh_token
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -74,5 +75,4 @@ async def logar_conta(
     "token_type": "bearer"
 }    
 
-@auth_router.post("/refresh_token")
-    pass
+    
