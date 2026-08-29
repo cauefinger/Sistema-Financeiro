@@ -1,14 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schemas import UsuarioSchemas, LoginSchemas
+from schemas import UsuarioSchemas, LoginSchemas, SchemaRefresh
 from controller.Depends import pegar_sessao
 from model.Usuario import Usuario
 from criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from controller.auth_security import criar_token
-from Depends import verificar_token, Usuario
+from Depends import verificar_token, Usuario, session
+from controller.auth_security import gerar_hash, gerar_refresh_token, criar_token
+from sqlalchemy import engine, select
+from model.Refresh import Refresh_token
 from service.token import criar_refresh_token
-
+from datetime import datetime, timedelta, timezone
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -76,3 +78,27 @@ async def logar_conta(
 }    
 
     
+@auth_router.post("/refresh")
+def refresh(req: SchemaRefresh):
+    
+    with Session(engine) as session:
+
+        token_hash = gerar_hash(req.refresh_token)
+        refresh = session.scalar(
+            select(Refresh_token).where
+            (Refresh_token.hash == token_hash)
+        )
+
+        if not refresh:
+            raise HTTPException(status_code=401, detail="Refresh token inválido.")
+
+        if refresh.date < datetime.utcnow():
+            raise HTTPException(status_code=401, detail="Refresh token expirado.")
+
+        acess = criar_token(refresh.sub)
+
+    return {
+        "acess_token": acess,
+        "token_tipe": "bearer"
+    }
+

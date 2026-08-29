@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Optional
 from enums import StatusTransacao
 from datetime import date
+from sqlalchemy import String
 class UsuarioSchemas(BaseModel):
     nome: str
     email: str
@@ -30,3 +31,5 @@ class TransacaoSchemas(BaseModel):
     data: date
     usuario_id: int
 
+class SchemaRefresh(BaseModel):
+    Refresh_token: String
