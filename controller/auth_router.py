@@ -72,16 +72,18 @@ async def logar_conta(
     usuario = autentificar_usuario(form_data.username, form_data.password, sessao)
 
     token = criar_token(usuario.id)
+    refresh_token = criar_refresh_token(usuario.id)
 
     return{
+    "refresh_token": refresh_token,
     "access_token": token,
     "token_type": "bearer"
 }    
 
-    
+
 @auth_router.post("/refresh")
 def refresh(req: SchemaRefresh):
-    
+
     with Session(engine) as session:
 
         token_hash = gerar_hash(req.refresh_token)
