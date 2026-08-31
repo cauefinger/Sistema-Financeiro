@@ -20,6 +20,13 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 
 from database import Base # ligar os parametros com tabela
+from database import Base
+
+from model.Transacao import Transacao
+from model.Usuario import Usuario
+from model.Categoria import Categoria
+from model.Refresh import Refresh_token
+from model.Transacao import Transacao
 
 target_metadata = Base.metadata
 

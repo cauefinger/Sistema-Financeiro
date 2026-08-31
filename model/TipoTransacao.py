@@ -1,8 +1,7 @@
 from sqlalchemy import ForeignKey, Column, Integer, Float, String, Boolean
 from enum import Enum
 from sqlalchemy import Enum as SQLENum, Date
-from database import Base
-from database import engine
+from database import Base, engine
 
 
 

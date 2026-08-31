@@ -1,9 +1,8 @@
 from sqlalchemy import ForeignKey, Column, Integer, Float, String, Boolean
 from enum import Enum
 from sqlalchemy import Enum as SQLENum, Date
-from database import Base
-from database import engine
-from TipoTransacao import TipoTransacao
+from database import engine, Base
+from .TipoTransacao import TipoTransacao
 
 class Transacao(Base):
     __tablename__ = "transacoes"
