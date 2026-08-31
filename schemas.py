@@ -27,9 +27,10 @@ class TransacaoSchemas(BaseModel):
     id: int
     descricao: str
     valor: float
-    tipo: StatusTransacao
+    tipo: str  # Usar str em vez do enum diretamente
     data: date
     usuario_id: int
+    categoria_id: int  # Adicionar categoria
 
 class SchemaRefresh(BaseModel):
     Refresh_token: str
