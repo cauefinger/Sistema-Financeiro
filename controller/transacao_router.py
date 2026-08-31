@@ -1,16 +1,16 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from controller.Depends import verificar_token
-from controller import Depends
+from sqlalchemy.orm import Session
+from controller.Depends import pegar_sessao
 transacao_router = APIRouter (
     prefix= "/transacoes",
-    tags=["trasação"]
+    tags=["transacao"]
 )
 
 @transacao_router.get("/")
-
-async def entrar_rota(
-        entrar_rota = Depends(verificar_token)
-        ):
-        return {"mensagem": "Você está autenticado e entrou na rota de transações."}
+async def listar_transacoes(
+    sessao: Session = Depends(pegar_sessao)
+):
+    return {"mensagem": "Rota de transações"}
     
