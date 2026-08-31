@@ -1,5 +1,5 @@
 from database import engine
-from sqlalchemy.orm import sessionmaker,session
+from sqlalchemy.orm import sessionmaker, Session
 from fastapi import Depends, HTTPException
 from jose import jwt, JWTError
 from controller.auth_security import SECRET_KEY, ALGORITHM
@@ -20,7 +20,7 @@ def pegar_sessao():
 
 
 
-def verificar_token(token: str = Depends(oauth2_scheme), sessao: session = Depends(pegar_sessao)):
+def verificar_token(token: str = Depends(oauth2_scheme), sessao: Session = Depends(pegar_sessao)):
 
     try:
         dic_info = jwt.decode(token, SECRET_KEY, ALGORITHM)
@@ -28,7 +28,7 @@ def verificar_token(token: str = Depends(oauth2_scheme), sessao: session = Depen
     except JWTError:
         raise HTTPException(status_code=401, detail="Acesso negado, verifique a validade do token.") 
 
-    usuario = session.query(Usuario).filter(Usuario.id == id_usuario).first()
+    usuario = sessao.query(Usuario).filter(Usuario.id == id_usuario).first()
     if not usuario:
         raise HTTPException(status_code=401,detail="Acesso inválido.")
 

@@ -19,9 +19,9 @@ async def listar_usuarios(
     return usuarios
 
 @usuario_router.get("/{id}")
-async def listar_usuarios_id(
+async def listar_usuario_id(
     id: int,
     sessao: Session = Depends(pegar_sessao)
 ):
-    usuarios_id = sessao.query(Usuario).filter(Usuario.id == id).first()
-    return usuarios_id
+    usuario_id = sessao.query(Usuario).filter(Usuario.id == id).first()
+    return usuario_id
