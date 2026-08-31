@@ -32,4 +32,4 @@ class TransacaoSchemas(BaseModel):
     usuario_id: int
 
 class SchemaRefresh(BaseModel):
-    Refresh_token: String
+    Refresh_token: str

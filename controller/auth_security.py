@@ -3,6 +3,8 @@ from criptografar import SECRET_KEY
 from datetime import timedelta, datetime
 import secrets
 import hashlib
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -33,4 +35,6 @@ def gerar_hash(token):
     hash_token = hashlib.sha256(token_bytes).hexdigest()
 
     return hash_token
-    
+
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autentificacao/login")

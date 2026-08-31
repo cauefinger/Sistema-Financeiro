@@ -5,8 +5,7 @@ from model.Usuario import Usuario
 from criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from Depends import verificar_token, Usuario, session
-from controller.auth_security import gerar_hash, gerar_refresh_token, criar_token
+from controller.auth_security import gerar_hash, gerar_refresh_token, criar_token, oauth2_scheme    
 from sqlalchemy import select
 from model.Refresh import Refresh_token
 from service.token import criar_refresh_token
@@ -57,10 +56,6 @@ def autentificar_usuario(email, senha, sessao):
         raise HTTPException(status_code=401, detail= "Credenciais inválidas.")
 
     return usuario
-
-
-
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autentificacao/login")
 
 
 @auth_router.post("/login")
