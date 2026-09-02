@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from controller.Depends import verificar_token
 from sqlalchemy.orm import Session
 from controller.Depends import pegar_sessao 
-from service.Transacao_service import criar_transacao
+from service.Transacao_service import criar_transacao, mostrar_transacao
 from schemas import TransacaoSchemas
 
 transacao_router = APIRouter (
@@ -12,11 +12,14 @@ transacao_router = APIRouter (
 )
 
 @transacao_router.get("/")
-async def mensagem_transacoes(
+async def transacoes(
     verificacao = Depends(verificar_token),
     sessao: Session = Depends(pegar_sessao)
 ):
-    return {"mensagem": "Rota de transações"}
+    return mostrar_transacao (
+        sessao=sessao,
+        usuario_atual=verificacao
+    )
 
 @transacao_router.post("/transacoes")
 async def criar(

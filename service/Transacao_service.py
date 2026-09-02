@@ -7,6 +7,18 @@ from model.Transacao import Transacao
 from controller.auth_router import Usuario
 from model.Categoria import Categoria
 
+def mostrar_transacao(
+        sessao: Session = Depends(pegar_sessao),
+        usuario_atual: Usuario = Depends(verificar_token)
+    ):
+
+        transacoes = Session.query(Transacao).filter(Transacao.usuario_id == usuario_atual.id).all()
+        
+        return transacoes
+    
+    
+
+
 def criar_transacao(
     transacao: TransacaoSchemas,    
     sessao: Session = Depends(pegar_sessao),
