@@ -21,5 +21,5 @@ async def mensagem_transacoes(
     transacao: TransacaoSchemas,
     sessao: Session = Depends(pegar_sessao),
     usuario_atual: dict = Depends(verificar_token):
-    
+
     return criar_transacao(transacao, sessao, usuario_atual)
