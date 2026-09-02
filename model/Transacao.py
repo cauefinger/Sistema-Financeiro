@@ -12,5 +12,5 @@ class Transacao(Base):
     valor = Column("Valor", Float, nullable=False)
     tipo = Column(SQLENum(TipoTransacao), nullable=False)
     data = Column(Date, nullable=False)
-    categoria_id = Column(Integer, ForeignKey("categorias.id"), nullable=False)
+    categoria_id = Column(Integer, ForeignKey("categoria.id"), nullable=False)
     usuario_id = Column(Integer,ForeignKey("usuarios.id"), nullable=False)

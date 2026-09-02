@@ -25,4 +25,4 @@ async def criar(
     usuario_atual: dict = Depends(verificar_token)
 ):
     return criar_transacao(transacao=transacao, sessao=sessao, usuario_atual=usuario_atual)
-    
+        
