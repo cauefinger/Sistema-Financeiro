@@ -9,7 +9,7 @@ class Refresh_token(Base):
     sub = Column(String)   
     hash = Column(String)
     date = Column(DateTime,
-                  default=lambda:
-                  datetime.utcnow() + timedelta(days=7)
+    default=lambda:
+    datetime.utcnow() + timedelta(days=7)
     )
     revogado = Column(Boolean, default=False)
