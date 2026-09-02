@@ -3,10 +3,10 @@ from enum import Enum
 from sqlalchemy import Enum as SQLENum, Date
 from database import engine, Base
 from enums import TipoTransacao
+from controller.auth_router import Usuario
 
 class Transacao(Base):
     __tablename__ = "transacoes"
-    id = Column("id", Integer, primary_key=True, autoincrement=True)
     descricao = Column("Descricao", String)
     valor = Column("Valor", Float, nullable=False)
     tipo = Column(SQLENum(TipoTransacao), nullable=False)

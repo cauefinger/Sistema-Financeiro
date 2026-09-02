@@ -9,7 +9,7 @@ usuario_router = APIRouter (
     prefix= "/usuarios",
     tags=["Usuários"]
 )
-
+ 
 @usuario_router.get("/", response_model = list[VisualizarUsuario])
 async def listar_usuarios(
     sessao: Session = Depends(pegar_sessao)

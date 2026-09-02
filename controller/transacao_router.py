@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from controller.Depends import pegar_sessao 
 from service.Transacao_service import criar_transacao
 from schemas import TransacaoSchemas
+
 transacao_router = APIRouter (
     prefix= "/transacoes",
     tags=["transacao"]
@@ -17,9 +18,11 @@ async def mensagem_transacoes(
 ):
     return {"mensagem": "Rota de transações"}
 
-@transacao_router.post("/transacoes")(
+@transacao_router.post("/transacoes")
+async def criar(
     transacao: TransacaoSchemas,
     sessao: Session = Depends(pegar_sessao),
-    usuario_atual: dict = Depends(verificar_token):
-
-    return criar_transacao(transacao, sessao, usuario_atual)
+    usuario_atual: dict = Depends(verificar_token)
+):
+    return criar_transacao(transacao=transacao, sessao=sessao, usuario_atual=usuario_atual)
+    

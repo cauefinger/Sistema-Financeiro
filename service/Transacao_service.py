@@ -12,12 +12,13 @@ def criar_transacao(
     usuario_atual: dict = Depends(verificar_token)):
 
     nova_transacao = Transacao(
-        descricao = transacao.descricao
-        valor = transacao.valor
-        tipo = transacao.tipo
-        data = transacao.data
-        categoria_id = transacao.categoria_id
-    ):
+        descricao = transacao.descricao,
+        valor = transacao.valor,
+        tipo = transacao.tipo,
+        data = transacao.data,
+        categoria_id = transacao.categoria_id,
+        usuario_id = usuario_atual["id"]
+    )
 
     sessao.add(nova_transacao)
     sessao.commit()
