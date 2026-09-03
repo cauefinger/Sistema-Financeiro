@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from controller.Depends import verificar_token
 from sqlalchemy.orm import Session
 from controller.Depends import pegar_sessao 
-from service.Transacao_service import criar_transacao, mostrar_transacao
+from service.Transacao_service import criar_transacao, mostrar_transacao, excluir_transacao
 from schemas import TransacaoSchemas
 
 transacao_router = APIRouter (
@@ -28,4 +28,16 @@ async def criar(
     usuario_atual: dict = Depends(verificar_token)
 ):
     return criar_transacao(transacao=transacao, sessao=sessao, usuario_atual=usuario_atual)
-        
+
+
+@transacao_router.delete("/transacoes_excluir")
+async def excluir(
+        transacao_id: int,
+        sessao: Session = Depends(pegar_sessao),
+        usuario_atual: dict = Depends(verificar_token)
+):
+    return excluir_transacao(
+        transacao_id=transacao_id,
+        sessao=sessao,
+        usuario_atual=usuario_atual
+    )

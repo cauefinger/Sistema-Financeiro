@@ -3,6 +3,8 @@ from typing import Optional
 from enums import StatusTransacao
 from datetime import date
 from sqlalchemy import String
+from model import Usuario
+
 class UsuarioSchemas(BaseModel):
     nome: str
     email: str
@@ -32,3 +34,6 @@ class TransacaoSchemas(BaseModel):
 
 class SchemaRefresh(BaseModel):
     Refresh_token: str
+
+
+    

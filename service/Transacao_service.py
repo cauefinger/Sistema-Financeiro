@@ -6,13 +6,14 @@ from pydantic import BaseModel
 from model.Transacao import Transacao
 from controller.auth_router import Usuario
 from model.Categoria import Categoria
+from enums import TipoTransacao
 
 def mostrar_transacao(
         sessao: Session = Depends(pegar_sessao),
         usuario_atual: Usuario = Depends(verificar_token)
     ):
 
-        transacoes = Session.query(Transacao).filter(Transacao.usuario_id == usuario_atual.id).all()
+        transacoes = sessao.query(Transacao).filter(Transacao.usuario_id == usuario_atual.id).all()
         
         return transacoes
     
@@ -38,3 +39,19 @@ def criar_transacao(
     sessao.refresh(nova_transacao)  
 
     return nova_transacao
+
+
+def excluir_transacao(
+    transacao: int,
+    sessao: Session = Depends(pegar_sessao),
+    usuario_atual: Usuario = Depends(verificar_token)
+):
+        transacao_excluida = sessao.query(Transacao).filter
+        (Transacao.id == transacao_id,
+        Transacao.usuario_id == usuario_atual.id        
+        ).first()
+
+
+        if transacao_excluida is None:
+            return {"mensagem": "Transação excluida com sucesso"}
+
