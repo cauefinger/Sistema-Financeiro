@@ -10,3 +10,4 @@ class StatusTransacao(str, Enum):
 class TipoTransacao(str, Enum):
     RECEITA = "RECEITA"
     DESPESA = "DESPESA"
+    CANCELADA = "CANCELADA"

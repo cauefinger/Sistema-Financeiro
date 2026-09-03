@@ -42,16 +42,21 @@ def criar_transacao(
 
 
 def excluir_transacao(
-    transacao: int,
+    transacao_id: int,
     sessao: Session = Depends(pegar_sessao),
     usuario_atual: Usuario = Depends(verificar_token)
 ):
         transacao_excluida = sessao.query(Transacao).filter
         (Transacao.id == transacao_id,
-        Transacao.usuario_id == usuario_atual.id        
+        Transacao.usuario_id == usuario_atual(id)        
         ).first()
 
 
         if transacao_excluida is None:
-            return {"mensagem": "Transação excluida com sucesso"}
+            return {"mensagem": "Transação não encontrada."}
 
+        transacao_excluida.tipo = TipoTransacao.CANCELADA
+        sessao.delete(transacao_excluida)
+        sessao.delete(transacao_excluida)
+
+        return {"Mensagem": "Transação excluida com sucesso."}
