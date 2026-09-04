@@ -13,4 +13,4 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 [ ] Trabalhar na transacao_router criando o primeiro post
 [ ] Passar o arquivo .env, banco.db e pycache pro git ignore
 [OK] Verificar a rota de transações
-[ ] Testar rota de excluir transação
+[OK] Testar rota de excluir transação

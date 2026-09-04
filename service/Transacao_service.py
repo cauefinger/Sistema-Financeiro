@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from model.Transacao import Transacao
 from controller.auth_router import Usuario
 from model.Categoria import Categoria
-from enums import TipoTransacao
 
 def mostrar_transacao(
         sessao: Session = Depends(pegar_sessao),
@@ -55,8 +54,7 @@ def excluir_transacao(
     if transacao_excluida is None:
         return {"mensagem": "Transação não encontrada."}
 
-    transacao_excluida.tipo = TipoTransacao.CANCELADA
     sessao.delete(transacao_excluida)
-    sessao.delete(transacao_excluida)
+    sessao.commit()
 
     return {"Mensagem": "Transação excluida com sucesso."}

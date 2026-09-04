@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from enums import StatusTransacao
+from enums import TipoTransacao
 from datetime import date
 from sqlalchemy import String
 from model import Usuario
@@ -28,7 +28,7 @@ class LoginSchemas(BaseModel):
 class TransacaoSchemas(BaseModel):
     descricao: str
     valor: float
-    tipo: str  # Usar str em vez do enum diretamente
+    tipo: TipoTransacao  # Usar str em vez do enum diretamente
     data: date
     categoria_id: int  # Adicionar categoria
 
