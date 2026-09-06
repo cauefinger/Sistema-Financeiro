@@ -14,3 +14,4 @@ class Transacao(Base):
     data = Column(Date, nullable=False)
     categoria_id = Column(Integer, ForeignKey("categoria.id"), nullable=False)
     usuario_id = Column(Integer,ForeignKey("usuarios.id"), nullable=False)
+    conta_id = Column(Integer, ForeignKey("conta.id"), nullable=False)

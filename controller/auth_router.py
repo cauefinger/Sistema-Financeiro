@@ -11,6 +11,7 @@ from model.Refresh import Refresh_token
 from service.token import criar_refresh_token
 from datetime import datetime, timedelta, timezone
 from database import engine
+from model.ContaModel import Conta
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -45,6 +46,14 @@ async def criar_conta(usuario_schema: UsuarioSchemas, sessao = Depends (pegar_se
             nome = usuario_schema.nome, email = usuario_schema.email, senha = senha_criptografada
             )
         sessao.add(novo_usuario)
+        sessao.commit()
+
+        nova_conta = Conta(
+            saldo=0,
+            usuario_id = novo_usuario.id
+        )
+
+        sessao.add(nova_conta)
         sessao.commit()
         return {"mensagem": f"Usuário cadastrado com sucesso {novo_usuario.email}"} 
 
