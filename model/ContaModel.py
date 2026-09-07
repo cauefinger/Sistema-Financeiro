@@ -5,4 +5,4 @@ class Conta(Base):
     __tablename__ = "conta"
     id = Column(Integer, primary_key=True, nullable=False)
     saldo = Column(Float, default=0)
-    usuario_id = Column(ForeignKey("usuarios.id"), Integer, nullable=False)
+    usuario_id = Column(Integer, ForeignKey("usuarios.id"), nullable=False)
