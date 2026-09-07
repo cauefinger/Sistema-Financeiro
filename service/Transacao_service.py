@@ -68,7 +68,24 @@ def excluir_transacao(
 
 
     if transacao_excluida is None:
-        return {"mensagem": "Transação não encontrada."}
+        raise HTTPException(status_code=404, detail="Transação não encontrada.")
+
+# CONTA
+
+    conta = sessao.query(Conta).filter(Conta.id == transacao_excluida.conta_id,
+    Conta.usuario_id == usuario_atual.id
+    ).first()
+
+
+    if conta is None:
+        raise HTTPException(status_code=404, detail="Conta da transação não encontrada.")
+
+    if transacao_excluida.tipo == TipoTransacao.DESPESA:
+        conta.saldo += transacao_excluida.valor
+
+    elif transacao_excluida.tipo == TipoTransacao.RECEITA:
+        conta.saldo -= transacao_excluida.valor 
+
 
     sessao.delete(transacao_excluida)
     sessao.commit()
