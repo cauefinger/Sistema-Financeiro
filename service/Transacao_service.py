@@ -30,7 +30,8 @@ def criar_transacao(
         tipo = transacao.tipo,
         data = transacao.data,
         categoria_id = transacao.categoria_id,
-        usuario_id = usuario_atual.id
+        usuario_id = usuario_atual.id,
+        conta_id = transacao.conta_id
     )
 
     sessao.add(nova_transacao)

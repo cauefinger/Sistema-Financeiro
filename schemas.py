@@ -31,6 +31,7 @@ class TransacaoSchemas(BaseModel):
     tipo: TipoTransacao  # Usar str em vez do enum diretamente
     data: date
     categoria_id: int  # Adicionar categoria
+    conta_id: int
 
 class SchemaRefresh(BaseModel):
     Refresh_token: str
