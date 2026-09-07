@@ -1,11 +1,13 @@
 from schemas import TransacaoSchemas
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 from controller.Depends import verificar_token, pegar_sessao
 from pydantic import BaseModel
 from model.Transacao import Transacao
 from controller.auth_router import Usuario
 from model.Categoria import Categoria
+from model.ContaModel import Conta
+from enums import TipoTransacao
 
 def mostrar_transacao(
         sessao: Session = Depends(pegar_sessao),
@@ -15,9 +17,10 @@ def mostrar_transacao(
         transacoes = sessao.query(Transacao).filter(Transacao.usuario_id == usuario_atual.id).all()
         
         return transacoes
-    
-    
 
+
+    
+# Criando transação com a operação de adicionar receita ou subtrair despesa integrada
 
 def criar_transacao(
     transacao: TransacaoSchemas,    
@@ -31,14 +34,26 @@ def criar_transacao(
         data = transacao.data,
         categoria_id = transacao.categoria_id,
         usuario_id = usuario_atual.id,
-        conta_id = transacao.conta_id
+        conta_id = transacao.conta_id,
+
     )
+    conta = sessao.query(Conta).filter(Conta.id == transacao.conta_id, Conta.usuario_id == usuario_atual.id).first()
+
+    if not conta:
+        raise HTTPException(status_code=404, detail="Conta não encontrada.")
+
+    if transacao.tipo == TipoTransacao.DESPESA:
+        conta.saldo -= transacao.valor
+
+    elif transacao.tipo == TipoTransacao.RECEITA:
+        conta.saldo += transacao.valor
 
     sessao.add(nova_transacao)
     sessao.commit()
     sessao.refresh(nova_transacao)  
 
     return nova_transacao
+
 
 
 def excluir_transacao(
