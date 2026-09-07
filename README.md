@@ -16,3 +16,4 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 [OK] Testar rota de excluir transação
 [ ] Criar a CONTA e todas as rotas/arquivos necessários 
 [ ] Utilizar a transação router para criar saldo ou despesa
+[ ] Fazer o editar transação e excluir transação considerando o sistema de saldo/despesa
