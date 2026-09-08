@@ -20,12 +20,41 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
 
-    # A coluna conta_id já foi criada pela tentativa anterior
-    # desta migration.
-    #
-    # Portanto, não usamos op.add_column() novamente.
+    # ============================================================
+    # 1. CRIA A TABELA CONTA
+    # ============================================================
 
-    # 1. Cria uma conta para cada usuário que ainda não possui conta.
+    op.create_table(
+        "conta",
+        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("saldo", sa.Float(), nullable=False, server_default="0"),
+        sa.Column("usuario_id", sa.Integer(), nullable=False),
+
+        sa.ForeignKeyConstraint(
+            ["usuario_id"],
+            ["usuarios.id"]
+        ),
+
+        sa.PrimaryKeyConstraint("id")
+    )
+
+    # ============================================================
+    # 2. ADICIONA A COLUNA conta_id EM transacoes
+    # ============================================================
+
+    op.add_column(
+        "transacoes",
+        sa.Column(
+            "conta_id",
+            sa.Integer(),
+            nullable=True
+        )
+    )
+
+    # ============================================================
+    # 3. CRIA UMA CONTA PARA CADA USUÁRIO
+    # ============================================================
+
     op.execute("""
         INSERT INTO conta (saldo, usuario_id)
         SELECT 0, u.id
@@ -37,7 +66,10 @@ def upgrade() -> None:
         )
     """)
 
-    # 2. Vincula cada transação à conta do seu usuário.
+    # ============================================================
+    # 4. VINCULA CADA TRANSAÇÃO À CONTA DO SEU USUÁRIO
+    # ============================================================
+
     op.execute("""
         UPDATE transacoes
         SET conta_id = (
@@ -47,32 +79,55 @@ def upgrade() -> None:
         )
     """)
 
-    # 3. O SQLite não consegue usar batch_alter_table()
-    #    porque a FK antiga aponta para "categorias", tabela
-    #    que não existe mais.
+    # ============================================================
+    # 5. RECONSTRÓI A TABELA transacoes
     #
-    #    Portanto, reconstruímos a tabela transacoes manualmente,
-    #    já corrigindo a FK para "categoria".
+    # SQLite possui limitações para alterar foreign keys.
+    # Aproveitamos para corrigir:
+    #
+    # categorias -> categoria
+    #
+    # e criar a FK:
+    #
+    # conta_id -> conta.id
+    # ============================================================
 
     op.execute("PRAGMA foreign_keys=OFF")
 
     op.execute("""
         CREATE TABLE transacoes_new (
+
             id INTEGER NOT NULL PRIMARY KEY,
+
             Descricao VARCHAR,
+
             Valor FLOAT NOT NULL,
+
             tipo VARCHAR(7) NOT NULL,
+
             data DATE NOT NULL,
+
             categoria_id INTEGER NOT NULL,
+
             usuario_id INTEGER NOT NULL,
+
             conta_id INTEGER NOT NULL,
-            FOREIGN KEY(categoria_id) REFERENCES categoria (id),
-            FOREIGN KEY(usuario_id) REFERENCES usuarios (id),
-            FOREIGN KEY(conta_id) REFERENCES conta (id)
+
+            FOREIGN KEY(categoria_id)
+                REFERENCES categoria (id),
+
+            FOREIGN KEY(usuario_id)
+                REFERENCES usuarios (id),
+
+            FOREIGN KEY(conta_id)
+                REFERENCES conta (id)
         )
     """)
 
-    # 4. Copia os dados existentes para a nova tabela.
+    # ============================================================
+    # 6. COPIA OS DADOS DA TABELA ANTIGA
+    # ============================================================
+
     op.execute("""
         INSERT INTO transacoes_new (
             id,
@@ -96,10 +151,16 @@ def upgrade() -> None:
         FROM transacoes
     """)
 
-    # 5. Remove a tabela antiga.
+    # ============================================================
+    # 7. REMOVE A TABELA ANTIGA
+    # ============================================================
+
     op.execute("DROP TABLE transacoes")
 
-    # 6. Renomeia a nova tabela.
+    # ============================================================
+    # 8. RENOMEIA A NOVA TABELA
+    # ============================================================
+
     op.execute("""
         ALTER TABLE transacoes_new
         RENAME TO transacoes
@@ -110,22 +171,34 @@ def upgrade() -> None:
 
 def downgrade() -> None:
 
-    # Remove a FK/coluna conta_id reconstruindo a tabela,
-    # pois SQLite possui limitações para alteração de FKs.
+    # ============================================================
+    # 1. RECONSTRÓI transacoes SEM conta_id
+    # ============================================================
 
     op.execute("PRAGMA foreign_keys=OFF")
 
     op.execute("""
         CREATE TABLE transacoes_old (
+
             id INTEGER NOT NULL PRIMARY KEY,
+
             Descricao VARCHAR,
+
             Valor FLOAT NOT NULL,
+
             tipo VARCHAR(7) NOT NULL,
+
             data DATE NOT NULL,
+
             categoria_id INTEGER NOT NULL,
+
             usuario_id INTEGER NOT NULL,
-            FOREIGN KEY(categoria_id) REFERENCES categoria (id),
-            FOREIGN KEY(usuario_id) REFERENCES usuarios (id)
+
+            FOREIGN KEY(categoria_id)
+                REFERENCES categoria (id),
+
+            FOREIGN KEY(usuario_id)
+                REFERENCES usuarios (id)
         )
     """)
 
@@ -156,5 +229,11 @@ def downgrade() -> None:
         ALTER TABLE transacoes_old
         RENAME TO transacoes
     """)
+
+    # ============================================================
+    # 2. REMOVE A TABELA CONTA
+    # ============================================================
+
+    op.drop_table("conta")
 
     op.execute("PRAGMA foreign_keys=ON")

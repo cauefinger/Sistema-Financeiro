@@ -28,7 +28,7 @@ class LoginSchemas(BaseModel):
 class TransacaoSchemas(BaseModel):
     descricao: str
     valor: float
-    tipo: TipoTransacao  # Usar str em vez do enum diretamente
+    tipo: TipoTransacao  #TODO Usar str em vez do enum diretamente
     data: date
     categoria_id: int  # Adicionar categoria
     conta_id: int

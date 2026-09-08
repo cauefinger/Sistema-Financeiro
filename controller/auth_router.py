@@ -28,7 +28,7 @@ async def mensagem_rota():
 @auth_router.get("/listar_usuarios")
 async def listar_usuarios(sessao = Depends(pegar_sessao)):
     usuarios = sessao.query(Usuario).all()
-    return {"A lista de usuários é": usuarios}
+    return {"A lista de usuários é": usuarios} #TODO: retornar usuarios direto
 
 
 

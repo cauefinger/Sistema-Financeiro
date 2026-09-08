@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from controller.Depends import verificar_token
 from sqlalchemy.orm import Session
 from controller.Depends import pegar_sessao 
-from service.Transacao_service import criar_transacao, mostrar_transacao, excluir_transacao
+from service.Transacao_service import criar_transacao, buscar_todas_transacoes, excluir_transacao, atualizar_transacao
 from schemas import TransacaoSchemas
 
 transacao_router = APIRouter (
@@ -16,7 +16,7 @@ async def transacoes(
     verificacao = Depends(verificar_token),
     sessao: Session = Depends(pegar_sessao)
 ):
-    return mostrar_transacao (
+    return buscar_todas_transacoes (
         sessao=sessao,
         usuario_atual=verificacao
     )
@@ -41,3 +41,13 @@ async def excluir(
         sessao=sessao,
         usuario_atual=usuario_atual
     )
+
+@transacao_router.put("/{id}")
+async def atualizar(
+    id: int,
+    transacao_atualizada: TransacaoSchemas,
+    sessao: Session = Depends(pegar_sessao)
+):
+    transacao_atualizada = atualizar_transacao(id, transacao_atualizada, sessao)
+
+    return transacao_atualizada

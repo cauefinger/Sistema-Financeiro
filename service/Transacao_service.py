@@ -9,7 +9,7 @@ from model.Categoria import Categoria
 from model.ContaModel import Conta
 from enums import TipoTransacao
 
-def mostrar_transacao(
+def buscar_todas_transacoes(
         sessao: Session = Depends(pegar_sessao),
         usuario_atual: Usuario = Depends(verificar_token)
     ):
@@ -91,3 +91,24 @@ def excluir_transacao(
     sessao.commit()
 
     return {"Mensagem": "Transação excluida com sucesso."}
+
+def buscar_por_id(id: int, sessao: Session = Depends(pegar_sessao)):
+    return sessao.query(Transacao).filter(Transacao.id == id).first()
+
+def atualizar_transacao(id: int, transacao_atualizada: TransacaoSchemas, sessao: Session = Depends(pegar_sessao)):
+    transacao_existente = buscar_por_id(id, sessao)
+
+    if transacao_existente is None:
+        raise HTTPException(status_code=404, detail="Transacao nao encontrada")
+
+    transacao_existente.valor = transacao_atualizada.valor
+    transacao_existente.data = transacao_atualizada.data
+    transacao_existente.descricao = transacao_atualizada.descricao
+    transacao_existente.tipo = transacao_atualizada.tipo
+
+    sessao.commit()
+    sessao.refresh(transacao_existente)
+
+    #TODO: atualizar o saldo da conta com o novo valor da transacao
+
+    return transacao_existente
