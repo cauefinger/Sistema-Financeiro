@@ -43,7 +43,7 @@ async def excluir(
     )
 
 @transacao_router.put("/{id}")
-async def atualizar(
+def atualizar(
     id: int,
     transacao_atualizada: TransacaoSchemas,
     sessao: Session = Depends(pegar_sessao)

@@ -99,7 +99,7 @@ def atualizar_transacao(id: int, transacao_atualizada: TransacaoSchemas, sessao:
     transacao_existente = buscar_por_id(id, sessao)
 
     if transacao_existente is None:
-        raise HTTPException(status_code=404, detail="Transacao nao encontrada")
+        raise HTTPException(status_code=404, detail="Transação não encontrada")
 
     transacao_existente.valor = transacao_atualizada.valor
     transacao_existente.data = transacao_atualizada.data
