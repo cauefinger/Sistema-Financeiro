@@ -1,7 +1,8 @@
 from controller.Depends import pegar_sessao, Session, verificar_token
-from controller import Depends
+from fastapi import Depends
 from model import Categoria
-from controller.auth_router import Usuario, Depends
+from controller.auth_router import Usuario
+
 
 
 def buscar_todas_categorias(

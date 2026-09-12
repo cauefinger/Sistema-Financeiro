@@ -1,6 +1,6 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from service.Categoria_service import buscar_todas_categorias
-from controller.Depends import Depends, pegar_sessao, Session, verificar_token
+from controller.Depends import pegar_sessao, Session, verificar_token
 
 categoria_router = APIRouter (
     prefix= "/categorias",
