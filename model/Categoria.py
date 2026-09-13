@@ -10,3 +10,4 @@ class Categoria(Base):
     id = Column("id", Integer, autoincrement=True, primary_key=True)
     nome = Column("nome", String, nullable=False)
     usuario_id = Column("usuario", Integer, ForeignKey("usuarios.id"))
+    trancacao_id = Column("transacao",Integer,ForeignKey("transacao.id"))
