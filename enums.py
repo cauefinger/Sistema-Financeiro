@@ -11,10 +11,14 @@ class TipoTransacao(str, Enum):
     RECEITA = "RECEITA"
     DESPESA = "DESPESA"
 
-class TipoCategoria(str, Enum):
+class Categoria(str, Enum):
     NECESSIDADES = "NECESSIDADES"
     LAZER = "LAZER"
     DIVIDAS = "DIVIDAS"
     INVESTIMENTO = "INVESTIMENTO"
     RENDA_EXTRA = "RENDA_EXTRA"
     TRANSFERENCIA = "TRANSFERANCIA"
+    SALARIO = "SALARIO"
+    TRANSPORTE = "TRANSPORTE"
+    MORADIA = "MORADIA"
+    SAUDE = "SAUDE"
