@@ -5,7 +5,6 @@ from controller.Depends import verificar_token, pegar_sessao
 from pydantic import BaseModel
 from model.Transacao import Transacao
 from controller.auth_router import Usuario
-from model.Categoria import Categoria
 from model.ContaModel import Conta
 from enums import TipoTransacao
 
