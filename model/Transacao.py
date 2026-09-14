@@ -1,7 +1,6 @@
-from sqlalchemy import ForeignKey, Column, Integer, Float, String, Boolean
-from enum import Enum
+from sqlalchemy import ForeignKey, Column, Integer, Float, String
 from sqlalchemy import Enum as SQLENum, Date
-from database import engine, Base
+from database import Base
 from enums import TipoTransacao, Categoria
 from controller.auth_router import Usuario
 
@@ -12,7 +11,6 @@ class Transacao(Base):
     valor = Column("Valor", Float, nullable=False)
     tipo = Column(SQLENum(TipoTransacao), nullable=False)
     data = Column(Date, nullable=False)
-    categoria_id = Column(Integer, ForeignKey("categoria.id"), nullable=False)
     usuario_id = Column(Integer,ForeignKey("usuarios.id"), nullable=False)
     conta_id = Column(Integer, ForeignKey("conta.id"), nullable=False)
     categoria = Column(SQLENum(Categoria), nullable=False)

@@ -12,6 +12,7 @@ class TipoTransacao(str, Enum):
     DESPESA = "DESPESA"
 
 class Categoria(str, Enum):
+    GERAL = "GERAL"
     NECESSIDADES = "NECESSIDADES"
     LAZER = "LAZER"
     DIVIDAS = "DIVIDAS"

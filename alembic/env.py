@@ -24,7 +24,6 @@ from database import Base
 
 from model.Transacao import Transacao
 from model.Usuario import Usuario
-from model.Categoria import Categoria
 from model.Refresh import Refresh_token
 from model.Transacao import Transacao
 
