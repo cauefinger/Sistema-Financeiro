@@ -14,7 +14,9 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 [OK] Passar o arquivo .env, banco.db e pycache pro git ignore
 [OK] Verificar a rota de transações
 [OK] Testar rota de excluir transação
-[ ] Criar a CONTA e todas as rotas/arquivos necessários 
-[ ] Utilizar a transação router para criar saldo ou despesa
+[OK] Criar a CONTA e todas as rotas/arquivos necessários 
+[OK] Utilizar a transação router para criar saldo ou despesa
 [ ] Fazer o editar transação e excluir transação considerando o sistema de saldo/despesa
 [ ] Transação GET está mostrando apenas última transação, arrumar para exibir todas as transações
+[ ] Remover CATEGORIA_ID no POST da transação service
+[ ] Tratar e forçar erros na rota de transação
