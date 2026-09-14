@@ -20,3 +20,4 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 [ ] Transação GET está mostrando apenas última transação, arrumar para exibir todas as transações
 [ ] Remover CATEGORIA_ID no POST da transação service
 [ ] Tratar e forçar erros na rota de transação
+[ ] Implementar a categoria transacao na transacao_service (obs: na hora de criar transação não pergunta sobre qual a categoria dela)
