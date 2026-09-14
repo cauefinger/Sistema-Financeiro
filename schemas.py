@@ -30,7 +30,6 @@ class TransacaoSchemas(BaseModel):
     valor: float
     tipo: TipoTransacao  #TODO Usar str em vez do enum diretamente
     data: date
-    categoria_id: int  # Adicionar categoria
     conta_id: int
     categoria: Categoria
 
