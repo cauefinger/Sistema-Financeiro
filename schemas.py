@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from enums import TipoTransacao
+from enums import TipoTransacao, Categoria
 from datetime import date
 from sqlalchemy import String
 from model import Usuario
@@ -32,9 +32,9 @@ class TransacaoSchemas(BaseModel):
     data: date
     categoria_id: int  # Adicionar categoria
     conta_id: int
+    categoria: Categoria
 
 class SchemaRefresh(BaseModel):
     Refresh_token: str
-
 
     

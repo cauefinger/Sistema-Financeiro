@@ -31,9 +31,9 @@ def criar_transacao(
         valor = transacao.valor,
         tipo = transacao.tipo,
         data = transacao.data,
-        categoria_id = transacao.categoria_id,
         usuario_id = usuario_atual.id,
         conta_id = transacao.conta_id,
+        categoria = transacao.categoria,
 
     )
     conta = sessao.query(Conta).filter(Conta.id == transacao.conta_id, Conta.usuario_id == usuario_atual.id).first()
