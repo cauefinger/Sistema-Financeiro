@@ -16,9 +16,9 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 [OK] Testar rota de excluir transação
 [OK] Criar a CONTA e todas as rotas/arquivos necessários 
 [OK] Utilizar a transação router para criar saldo ou despesa
-[ ] Fazer o editar transação e excluir transação considerando o sistema de saldo/despesa
---------- -------------- ----------
 [OK] Transação GET está mostrando apenas última transação, arrumar para exibir todas as transações
 [OK] Remover CATEGORIA_ID no POST da transação service
+--------- -------------- ----------
+[ ] Fazer o editar transação e excluir transação considerando o sistema de saldo/despesa
 [ ] Tratar e forçar erros na rota de transação
 [ ] Implementar a categoria transacao na transacao_service (obs: na hora de criar transação não pergunta sobre qual a categoria dela)
