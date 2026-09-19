@@ -1,8 +1,7 @@
-from datetime import timedelta, timezone, datetime
+from datetime import timedelta, datetime
 from sqlalchemy.orm import Session
-from database import engine, Base
+from database import engine
 from controller.auth_security import gerar_refresh_token, gerar_hash
-from controller.Depends import pegar_sessao
 from model.Refresh import Refresh_token
 
 def criar_refresh_token(usuario_id: int, dias_expiracao: int = 7):

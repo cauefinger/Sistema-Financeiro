@@ -2,7 +2,6 @@ from schemas import TransacaoSchemas
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
 from controller.Depends import verificar_token, pegar_sessao
-from pydantic import BaseModel
 from model.Transacao import Transacao
 from controller.auth_router import Usuario
 from model.ContaModel import Conta
