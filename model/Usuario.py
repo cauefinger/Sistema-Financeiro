@@ -1,9 +1,5 @@
-from sqlalchemy import ForeignKey, Column, Integer, Float, String, Boolean
-from enum import Enum
-from sqlalchemy import Enum as SQLENum, Date
+from sqlalchemy import Column, Integer, String, Boolean
 from database import Base
-from database import engine
-
 
 class Usuario(Base):
     __tablename__ = "usuarios"

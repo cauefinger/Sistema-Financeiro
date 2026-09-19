@@ -2,7 +2,7 @@ from sqlalchemy import ForeignKey, Column, Integer, Float, String
 from sqlalchemy import Enum as SQLENum, Date
 from database import Base
 from enums import TipoTransacao, Categoria
-from controller.auth_router import Usuario
+
 
 class Transacao(Base):
     __tablename__ = "transacoes"
