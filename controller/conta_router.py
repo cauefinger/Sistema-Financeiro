@@ -3,7 +3,6 @@ from sqlalchemy.orm import Session
 
 from controller.Depends import pegar_sessao, verificar_token
 from model.ContaModel import Conta
-from model.Usuario import Usuario
 
 conta_router = APIRouter()
 

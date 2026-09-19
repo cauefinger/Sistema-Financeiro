@@ -3,7 +3,7 @@ from criptografar import SECRET_KEY
 from datetime import timedelta, datetime
 import secrets
 import hashlib
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
+from fastapi.security import OAuth2PasswordBearer
 
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30

@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from controller.Depends import verificar_token
 from sqlalchemy.orm import Session
 from controller.Depends import pegar_sessao 

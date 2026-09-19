@@ -1,15 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schemas import UsuarioSchemas, LoginSchemas, SchemaRefresh
+from schemas import UsuarioSchemas, SchemaRefresh
 from controller.Depends import pegar_sessao
 from model.Usuario import Usuario
 from criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from controller.auth_security import gerar_hash, gerar_refresh_token, criar_token, oauth2_scheme    
+from controller.auth_security import gerar_hash, criar_token    
 from sqlalchemy import select
 from model.Refresh import Refresh_token
 from service.token import criar_refresh_token
-from datetime import datetime, timedelta, timezone
+from datetime import datetime
 from database import engine
 from model.ContaModel import Conta
 
