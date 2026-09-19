@@ -1,13 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
-from schemas import UsuarioSchemas, SchemaRefresh
-from controller.Depends import pegar_sessao
-from model.Usuario import Usuario
-from criptografar import bcrypt_context, CryptContext
+from model.schemas import UsuarioSchemas, SchemaRefresh
+from controller.depends import pegar_sessao
+from model.usuario import Usuario
+from service.criptografar import bcrypt_context, CryptContext
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from controller.auth_security import gerar_hash, criar_token    
 from sqlalchemy import select
-from model.Refresh import Refresh_token
+from model.refresh import Refresh_token
 from service.token import criar_refresh_token
 from datetime import datetime
 from database import engine

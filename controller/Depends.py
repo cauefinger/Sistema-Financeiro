@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, Session
 from fastapi import Depends, HTTPException
 from jose import jwt, JWTError
 from controller.auth_security import SECRET_KEY, ALGORITHM
-from model.Usuario import Usuario
+from model.usuario import Usuario
 
 from fastapi.security import OAuth2PasswordBearer
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autentificacao/login")

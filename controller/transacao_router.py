@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends
-from controller.Depends import verificar_token
+from controller.depends import verificar_token
 from sqlalchemy.orm import Session
-from controller.Depends import pegar_sessao 
-from service.Transacao_service import criar_transacao, buscar_todas_transacoes, excluir_transacao, atualizar_transacao
-from schemas import TransacaoSchemas
+from controller.depends import pegar_sessao 
+from service.transacao_service import criar_transacao, buscar_todas_transacoes, excluir_transacao, atualizar_transacao
+from model.schemas import TransacaoSchemas
 
 transacao_router = APIRouter (
     prefix= "/transacoes",

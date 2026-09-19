@@ -1,11 +1,11 @@
-from schemas import TransacaoSchemas
+from model.schemas import TransacaoSchemas
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
-from controller.Depends import verificar_token, pegar_sessao
-from model.Transacao import Transacao
+from controller.depends import verificar_token, pegar_sessao
+from model.transacao import Transacao
 from controller.auth_router import Usuario
 from model.ContaModel import Conta
-from enums import TipoTransacao
+from model.enums import TipoTransacao
 
 def buscar_todas_transacoes(
         sessao: Session = Depends(pegar_sessao),

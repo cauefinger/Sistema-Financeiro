@@ -2,7 +2,7 @@ from datetime import timedelta, datetime
 from sqlalchemy.orm import Session
 from database import engine
 from controller.auth_security import gerar_refresh_token, gerar_hash
-from model.Refresh import Refresh_token
+from model.refresh import Refresh_token
 
 def criar_refresh_token(usuario_id: int, dias_expiracao: int = 7):
     token = gerar_refresh_token() # palavra aleatória

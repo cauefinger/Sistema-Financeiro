@@ -1,5 +1,5 @@
 from jose import jwt
-from criptografar import SECRET_KEY
+from service.criptografar import SECRET_KEY
 from datetime import timedelta, datetime
 import secrets
 import hashlib

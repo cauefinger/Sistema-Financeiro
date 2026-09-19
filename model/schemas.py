@@ -1,9 +1,8 @@
 from pydantic import BaseModel
 from typing import Optional
-from enums import TipoTransacao, Categoria
+from model.enums import TipoTransacao, Categoria
 from datetime import date
-from sqlalchemy import String
-from model import Usuario
+
 
 class UsuarioSchemas(BaseModel):
     nome: str
