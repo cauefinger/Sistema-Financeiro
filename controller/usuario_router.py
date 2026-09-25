@@ -11,7 +11,7 @@ usuario_router = APIRouter (
 )
  
 @usuario_router.get("/", response_model = list[VisualizarUsuario])
-async def listar_usuarios(
+async def buscar_todos(
     sessao: Session = Depends(pegar_sessao)
 ):
     usuarios = sessao.query(Usuario).all()
@@ -19,7 +19,7 @@ async def listar_usuarios(
     return usuarios
 
 @usuario_router.get("/{id}")
-async def listar_usuario_id(
+async def buscar_por_id(
     id: int,
     sessao: Session = Depends(pegar_sessao)
 ):
