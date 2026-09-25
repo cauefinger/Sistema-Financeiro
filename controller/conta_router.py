@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from controller.depends import pegar_sessao, verificar_token
-from model.ContaModel import Conta
+from model.conta import Conta
 
 conta_router = APIRouter(
     prefix="/conta",

@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from controller.depends import verificar_token, pegar_sessao
 from model.transacao import Transacao
 from controller.auth_router import Usuario
-from model.ContaModel import Conta
+from model.conta import Conta
 from model.enums import TipoTransacao
 
 def buscar_todas_transacoes(

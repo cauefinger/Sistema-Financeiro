@@ -11,18 +11,18 @@ from model.refresh import Refresh_token
 from service.token import criar_refresh_token
 from datetime import datetime
 from database import engine
-from model.ContaModel import Conta
+from model.conta import Conta
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 auth_router = APIRouter (
-    prefix= "/autentificacao",
-    tags=["autentificação"]
+    prefix= "/autenticacao",
+    tags=["autenticação"]
 )
 
 @auth_router.get("/")
 async def mensagem_rota():
-    return {"mensagem":"Você entrou na rota de autentificação."}
+    return {"mensagem":"Você entrou na rota de autenticação."}
 
 
 @auth_router.get("/listar_usuarios")
@@ -58,7 +58,7 @@ async def criar_conta(usuario_schema: UsuarioSchemas, sessao = Depends (pegar_se
         return {"mensagem": f"Usuário cadastrado com sucesso {novo_usuario.email}"} 
 
 
-def autentificar_usuario(email, senha, sessao):
+def autenticar_usuario(email, senha, sessao):
     usuario = sessao.query(Usuario).filter(Usuario.email == email).first()
 
     if not usuario or not pwd_context.verify(senha, usuario.senha): 
@@ -73,7 +73,7 @@ async def logar_conta(
         sessao: Session = Depends(pegar_sessao)
     ):
 
-    usuario = autentificar_usuario(form_data.username, form_data.password, sessao)
+    usuario = autenticar_usuario(form_data.username, form_data.password, sessao)
 
     token = criar_token(usuario.id)
     refresh_token = criar_refresh_token(usuario.id)
