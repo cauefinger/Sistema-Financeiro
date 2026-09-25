@@ -14,4 +14,3 @@ from controller.usuario_router import usuario_router
 app.include_router(usuario_router)
 app.include_router(auth_router)
 app.include_router(transacao_router)
-
