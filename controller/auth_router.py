@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from model.schemas import UsuarioSchemas, SchemaRefresh
+from model.schemas import UsuarioSchemas, SchemaRefresh, VisualizarUsuario
 from controller.depends import pegar_sessao
 from model.usuario import Usuario
 from service.criptografar import bcrypt_context, CryptContext
@@ -23,12 +23,6 @@ auth_router = APIRouter (
 @auth_router.get("/")
 async def mensagem_rota():
     return {"mensagem":"Você entrou na rota de autenticação."}
-
-
-@auth_router.get("/listar_usuarios")
-async def listar_usuarios(sessao = Depends(pegar_sessao)):
-    usuarios = sessao.query(Usuario).all()
-    return {"A lista de usuários é": usuarios} #TODO: retornar usuarios direto
 
 
 
