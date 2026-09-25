@@ -11,7 +11,7 @@ transacao_router = APIRouter (
 )
 
 @transacao_router.get("/")
-async def transacoes(
+async def buscar_todos(
     verificacao = Depends(verificar_token),
     sessao: Session = Depends(pegar_sessao)
 ):
@@ -20,7 +20,7 @@ async def transacoes(
         usuario_atual=verificacao
     )
 
-@transacao_router.post("/transacoes")
+@transacao_router.post("/")
 async def criar(
     transacao: TransacaoSchemas,
     sessao: Session = Depends(pegar_sessao),
@@ -29,7 +29,7 @@ async def criar(
     return criar_transacao(transacao=transacao, sessao=sessao, usuario_atual=usuario_atual)
 
 
-@transacao_router.delete("/transacoes_excluir")
+@transacao_router.delete("/")
 async def excluir(
         transacao_id: int,
         sessao: Session = Depends(pegar_sessao),
