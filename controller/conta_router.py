@@ -5,7 +5,7 @@ from controller.depends import pegar_sessao, verificar_token
 from model.ContaModel import Conta
 
 conta_router = APIRouter(
-    prefix="Conta",
+    prefix="/conta",
     tags="Conta"
     )
 

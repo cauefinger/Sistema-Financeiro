@@ -7,7 +7,7 @@ from model.schemas import TransacaoSchemas
 
 transacao_router = APIRouter (
     prefix= "/transacoes",
-    tags=["transacao"]
+    tags=["Transações"]
 )
 
 @transacao_router.get("/")
