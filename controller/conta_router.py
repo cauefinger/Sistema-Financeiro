@@ -1,15 +1,13 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
 from controller.depends import pegar_sessao, verificar_token
 from model.conta import Conta
 
 conta_router = APIRouter(
     prefix="/conta",
-    tags="Conta"
+    tags=["Conta"]
     )
 
-#TODO: Não esta aparecendo no docs nem funcionando o endpoint, entender
 #TODO: renomear essa funcao para um nome mais descritivo que siga o padrao REST
 
 @conta_router.get("/")
