@@ -4,14 +4,17 @@ from sqlalchemy.orm import Session
 from controller.depends import pegar_sessao, verificar_token
 from model.ContaModel import Conta
 
-conta_router = APIRouter()
+conta_router = APIRouter(
+    prefix="Conta",
+    tags="Conta"
+    )
 
-#TODO: Deve setar um prefix pra conta, nao setar aqui na definicao do endpoint
 #TODO: Não esta aparecendo no docs nem funcionando o endpoint, entender
 #TODO: renomear essa funcao para um nome mais descritivo que siga o padrao REST
-@conta_router.get("/conta")
+
+@conta_router.get("/")
 def consultar_saldo(
-    sessao: Session = Depends(pegar_sessao),
+    sessao: Session = Depends(pegar_sessao),        
     usuario_atual: Session = Depends(verificar_token),
 ):
 
