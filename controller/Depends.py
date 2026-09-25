@@ -6,7 +6,7 @@ from controller.auth_security import SECRET_KEY, ALGORITHM
 from model.usuario import Usuario
 
 from fastapi.security import OAuth2PasswordBearer
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autentificacao/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autenticacao/login")
 
 def pegar_sessao():
 

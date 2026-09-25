@@ -17,7 +17,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 auth_router = APIRouter (
     prefix= "/autenticacao",
-    tags=["autenticação"]
+    tags=["Autenticação"]
 )
 
 @auth_router.get("/")

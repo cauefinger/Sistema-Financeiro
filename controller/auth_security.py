@@ -37,4 +37,4 @@ def gerar_hash(token):
     return hash_token
 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autentificacao/login")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="autenticacao/login")
