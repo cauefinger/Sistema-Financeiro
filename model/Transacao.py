@@ -1,7 +1,7 @@
 from sqlalchemy import ForeignKey, Column, Integer, Float, String
 from sqlalchemy import Enum as SQLENum, Date
 from database import Base
-from enums import TipoTransacao, Categoria
+from model.enums import TipoTransacao, Categoria
 
 
 class Transacao(Base):
