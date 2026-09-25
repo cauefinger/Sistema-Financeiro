@@ -8,9 +8,8 @@ conta_router = APIRouter(
     tags=["Conta"]
     )
 
-#TODO: renomear essa funcao para um nome mais descritivo que siga o padrao REST
 
-@conta_router.get("/")
+@conta_router.get("/saldo")
 def consultar_saldo(
     sessao: Session = Depends(pegar_sessao),        
     usuario_atual: Session = Depends(verificar_token),
