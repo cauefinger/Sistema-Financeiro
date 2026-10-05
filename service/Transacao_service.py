@@ -99,14 +99,31 @@ def atualizar_transacao(id: int, transacao_atualizada: TransacaoSchemas, sessao:
     if transacao_existente is None:
         raise HTTPException(status_code=404, detail="Transação não encontrada")
 
+    conta = sessao.query(Conta).filter(Conta.id == transacao_existente.conta_id).first()
+
+    if conta is None:
+        raise HTTPException(status_code=404, detail="Conta da transação não encontrada.")
+
+    # 1) desfaz o efeito da transação ANTIGA no saldo
+    if transacao_existente.tipo == TipoTransacao.DESPESA:
+        conta.saldo += transacao_existente.valor
+    elif transacao_existente.tipo == TipoTransacao.RECEITA:
+        conta.saldo -= transacao_existente.valor
+
+    # 2) atualiza os dados da transação
     transacao_existente.valor = transacao_atualizada.valor
     transacao_existente.data = transacao_atualizada.data
     transacao_existente.descricao = transacao_atualizada.descricao
     transacao_existente.tipo = transacao_atualizada.tipo
+    transacao_existente.categoria = transacao_atualizada.categoria
+
+    # 3) aplica o efeito da transação NOVA no saldo
+    if transacao_existente.tipo == TipoTransacao.DESPESA:
+        conta.saldo -= transacao_existente.valor
+    elif transacao_existente.tipo == TipoTransacao.RECEITA:
+        conta.saldo += transacao_existente.valor
 
     sessao.commit()
     sessao.refresh(transacao_existente)
-
-    #TODO: atualizar o saldo da conta com o novo valor da transacao
 
     return transacao_existente
