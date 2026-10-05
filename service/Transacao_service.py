@@ -8,8 +8,8 @@ from model.conta import Conta
 from model.enums import TipoTransacao
 
 def buscar_todas_transacoes(
-        sessao: Session = Depends(pegar_sessao),
-        usuario_atual: Usuario = Depends(verificar_token)
+        sessao: Session,
+        usuario_atual: Usuario
     ):
 
         transacoes = sessao.query(Transacao).filter(Transacao.usuario_id == usuario_atual.id).all()
