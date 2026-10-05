@@ -22,4 +22,4 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 [ ] Fazer o editar transação e excluir transação considerando o sistema de saldo/despesa
 [ ] Tratar e forçar erros na rota de transação
 [ ] Implementar a categoria transacao na transacao_service (obs: na hora de criar transação não pergunta sobre qual a categoria dela)
-[ ] Buscar todos na rota de transações não está funcionando, descobrir o que está acontecendo e arrumar 
+[OK] Buscar todos na rota de transações não está funcionando, descobrir o que está acontecendo e arrumar 
