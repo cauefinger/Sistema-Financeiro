@@ -19,7 +19,7 @@ O projeto permite gerenciar operações financeiras por meio de uma API REST, co
 [OK] Transação GET está mostrando apenas última transação, arrumar para exibir todas as transações
 [OK] Remover CATEGORIA_ID no POST da transação service
 --------- -------------- ----------
-[ ] Fazer o editar transação e excluir transação considerando o sistema de saldo/despesa
+[OK] Fazer o editar transação e excluir transação considerando o sistema de saldo/despesa
 [ ] Tratar e forçar erros na rota de transação
-[ ] Implementar a categoria transacao na transacao_service (obs: na hora de criar transação não pergunta sobre qual a categoria dela)
+[OK] Implementar a categoria transacao na transacao_service (obs: na hora de criar transação não pergunta sobre qual a categoria dela)
 [OK] Buscar todos na rota de transações não está funcionando, descobrir o que está acontecendo e arrumar 

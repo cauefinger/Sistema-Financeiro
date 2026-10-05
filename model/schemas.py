@@ -31,7 +31,7 @@ class TransacaoSchemas(BaseModel):
     data: date
     conta_id: int
     categoria: Categoria
-
+    
 class SchemaRefresh(BaseModel):
     Refresh_token: str
 
