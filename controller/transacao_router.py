@@ -45,8 +45,9 @@ async def excluir(
 def atualizar(
     id: int,
     transacao_atualizada: TransacaoSchemas,
-    sessao: Session = Depends(pegar_sessao)
+    sessao: Session = Depends(pegar_sessao),
+    usuario_atual = Depends(verificar_token)
 ):
-    transacao_atualizada = atualizar_transacao(id, transacao_atualizada, sessao)
+    transacao_atualizada = atualizar_transacao(id, transacao_atualizada, sessao, usuario_atual)
 
     return transacao_atualizada

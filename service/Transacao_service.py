@@ -90,16 +90,22 @@ def excluir_transacao(
 
     return {"Mensagem": "Transação excluida com sucesso."}
 
-def buscar_por_id(id: int, sessao: Session = Depends(pegar_sessao)):
-    return sessao.query(Transacao).filter(Transacao.id == id).first()
+def buscar_por_id(id: int, sessao: Session, usuario_atual: Usuario):
+    return sessao.query(Transacao).filter(
+        Transacao.id == id,
+        Transacao.usuario_id == usuario_atual.id
+    ).first()
 
-def atualizar_transacao(id: int, transacao_atualizada: TransacaoSchemas, sessao: Session = Depends(pegar_sessao)):
-    transacao_existente = buscar_por_id(id, sessao)
+def atualizar_transacao(id: int, transacao_atualizada: TransacaoSchemas, sessao: Session, usuario_atual: Usuario):
+    transacao_existente = buscar_por_id(id, sessao, usuario_atual)
 
     if transacao_existente is None:
         raise HTTPException(status_code=404, detail="Transação não encontrada")
 
-    conta = sessao.query(Conta).filter(Conta.id == transacao_existente.conta_id).first()
+    conta = sessao.query(Conta).filter(
+        Conta.id == transacao_existente.conta_id,
+        Conta.usuario_id == usuario_atual.id
+    ).first()
 
     if conta is None:
         raise HTTPException(status_code=404, detail="Conta da transação não encontrada.")
